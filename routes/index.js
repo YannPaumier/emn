@@ -10,29 +10,25 @@ router.get('/', function(req, res, next) {
 router.post('/auth', function(req, res, next) {
 
   var request = require('request');
-  console.log(req.body);
+  console.log(req.body)
+  res.status(200).send(req.body);
 
-  var options = {
+  request({
     url: 'https://services.net-entreprises.fr/authentifier/1.0/',
-    method: 'POST',
+    method: "POST",
     headers: {
       'User-Agent': 'Client-DSN (DsnBuilder/12.5; Paie.fr)',
       'Content-Type' :'application/xml'
     },
-    body: req.body
-  };
- 
-function callback(error, response, body) {
-  if (!error && response.statusCode == 200) {
-    //var info = JSON.parse(body);
-     res.status(200).send("Response : " + req.body);
-  }else{
-    res.status(400).send("Error : " + error);
-  }
-}
- 
-request(options, callback);
+    body: "<identifiants> <siret>"+ req.body.identifiants.siret+"</siret><nom>"+ req.body.identifiants.nom+"</nom><prenom>"+ req.body.identifiants.prenom+"</prenom><motdepasse>"+ req.body.identifiants.motdepasse+"</motdepasse><service>"+ req.body.identifiants.service+"</service></identifiants>"
+    }, function (error, response, body){
+      if(!error){
+        res.status(200).send(response.body);
+      }else{
+        res.status(400).send('error :' + error)
+      }
 
+    });
   
 });
 
