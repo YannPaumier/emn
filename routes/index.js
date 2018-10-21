@@ -7,8 +7,8 @@ router.get('/', function(req, res, next) {
 });
 
 /* Sync */
-router.get('/auth', function(req, res, next) {
-  res.status(200).send(req.body);
+router.post('/auth', function(req, res, next) {
+  res.status(200).send("Response : " + req.body);
 });
 
 module.exports = router;
