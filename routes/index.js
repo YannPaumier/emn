@@ -11,7 +11,7 @@ router.post('/auth', function(req, res, next) {
 
   var request = require('request');
   console.log(req.body)
-  res.status(200).send(req.body);
+
 
   request({
     url: 'https://services.net-entreprises.fr/authentifier/1.0/',
