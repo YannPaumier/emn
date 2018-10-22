@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var http = require('https');
+var http = require('http');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -47,10 +47,10 @@ router.post('/pushDsn', function(req, res, next) {
 
 
   var req2 = http.request({
-    "host": "depot.dsnrg.net-entreprises.fr",
-    "port": 80,
+    "host": "dsnrg.net-entreprises.fr",
+    "port": null,
     "method": "POST",
-    "path": "/deposer-dsn/1.0",
+    "path": "/deposer-dsn/1.0/",
     "headers": {
       'Authorization': 'DSNLogin jeton='+req.body.jeton,
       'User-Agent': 'Client-DSN (DsnBuilder/12.5; Paie.fr)',
