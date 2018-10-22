@@ -6,17 +6,18 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 require('body-parser-xml')(bodyParser);
 
+
+var compression = require('compression');
+
 var indexRouter = require('./routes/index');
 
 var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+// Test
+//app.use(compression());
 
 app.use(logger('dev'));
 app.use(bodyParser.xml());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
@@ -35,7 +36,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send('error  : '+ err);
 });
 
 module.exports = app;
