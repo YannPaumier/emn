@@ -65,14 +65,14 @@ router.post('/pushDsn', function(req, res, next) {
       },
       body: result
       }, function (error, response, body){
-        if(!error){
-          console.log(response.statusCode)
-          console.log(response.statusMessage)
-          console.log(zip.decompress(response.body))
-         // res.status(200).send(zip.decompress(response.body));
+        if(!error && response.statusCode == 200){
+          // console.log(response.statusCode)
+          // console.log(response.statusMessage)
+          // console.log(zip.decompress(response.body))
+          // res.status(200).send(zip.decompress(response.body));
          res.status(200).send(response.body);
         }else{
-          res.status(400).send('error :' + error)
+          res.status(response.statusCode).send('error :' + error + " Message : " +response.statusMessage)
         }
   
       });
