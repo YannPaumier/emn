@@ -34,15 +34,15 @@ router.post('/auth', function(req, res, next) {
 
 /* Send DSN */
 router.post('/pushDsn', function(req, res, next) {
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+  //process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
   var request = require('request');
   //var zip = require('lz-string');
-  var zip = require('lzjs');
+  //var zip = require('lzjs');
   var zlib = require('zlib');
 
   //console.log(req.body.jeton);
   //var compressed = zip.compress(req.body.file)
-  var compressed = zip.compress(req.body.file)
+  //var compressed = zip.compress(req.body.file)
   //console.log(compressed)
   //console.log(zip.decompress(compressed))
 
@@ -72,7 +72,7 @@ router.post('/pushDsn', function(req, res, next) {
           // res.status(200).send(zip.decompress(response.body));
          res.status(200).send(response.body);
         }else{
-          res.status(response.statusCode).send('error :' + error + " Message : " +response.statusMessage)
+          res.status(response.statusCode).send('error :' + error + ", message : " +response.statusMessage)
         }
   
       });
