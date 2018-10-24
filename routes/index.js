@@ -41,9 +41,8 @@ router.post('/pushDsn', function(req, res, next) {
   //var zip = require('lz-string');
   //var zip = require('lzjs');
   var zlib = require('zlib');
-
-  console.log("Jeton : ")
-  console.log(req.body.jeton);
+  console.log("Header Jeton : ")
+  console.log(req.get('jeton'));
 
   console.log("File : ")
   console.log(req.body.file);
@@ -55,7 +54,7 @@ router.post('/pushDsn', function(req, res, next) {
       method: "POST",
       gzip: true,
       headers: {
-        'Authorization': 'DSNLogin jeton='+req.body.jeton,
+        'Authorization': 'DSNLogin jeton='+req.get('jeton'),
         'User-Agent': 'Client-DSN (DsnBuilder/12.5; Paie.fr)',
         'Content-Type' :'text/plain',
         'Cache-Control': 'no-cache',
