@@ -40,11 +40,11 @@ router.post('/pushDsn', function(req, res, next) {
   //var zip = require('lzjs');
   var zlib = require('zlib');
 
-  //console.log(req.body.jeton);
-  //var compressed = zip.compress(req.body.file)
-  //var compressed = zip.compress(req.body.file)
-  //console.log(compressed)
-  //console.log(zip.decompress(compressed))
+  console.log("Jeton : ")
+  console.log(req.body.jeton);
+
+  console.log("File : ")
+  console.log(req.body.file);
 
   zlib.gzip(req.body.file, function (err, result) {
    
