@@ -20,7 +20,7 @@ router.post('/auth', function(req, res, next) {
       'User-Agent': 'Client-DSN (DsnBuilder/12.5; Paie.fr)',
       'Content-Type' :'application/xml'
     },
-    body: "<identifiants> <siret>"+ req.body.identifiants.siret+"</siret><nom>"+ req.body.identifiants.nom+"</nom><prenom>"+ req.body.identifiants.prenom+"</prenom><motdepasse>"+ req.body.identifiants.motdepasse+"</motdepasse><service>"+ req.body.identifiants.service+"</service></identifiants>"
+    body: "<identifiants> <siret>"+ req.body.siret+"</siret><nom>"+ req.body.nom+"</nom><prenom>"+ req.body.prenom+"</prenom><motdepasse>"+ req.body.motdepasse+"</motdepasse><service>"+ req.body.service+"</service></identifiants>"
     }, function (error, response, body){
       if(!error){
         res.status(200).send(response.body);
