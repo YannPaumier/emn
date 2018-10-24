@@ -23,6 +23,8 @@ router.post('/auth', function(req, res, next) {
     body: "<identifiants> <siret>"+ req.body.siret+"</siret><nom>"+ req.body.nom+"</nom><prenom>"+ req.body.prenom+"</prenom><motdepasse>"+ req.body.motdepasse+"</motdepasse><service>"+ req.body.service+"</service></identifiants>"
     }, function (error, response, body){
       if(!error && response.statusCode == 200){
+        console.log("jeton recu : ")
+        console.log(response.body)
         res.status(200).send(response.body);
       }else{
         res.status(response.statusCode).send('error :' + error + ", message : " +response.statusMessage)
