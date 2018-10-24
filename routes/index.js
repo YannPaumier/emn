@@ -66,12 +66,14 @@ router.post('/pushDsn', function(req, res, next) {
       body: result
       }, function (error, response, body){
         if(!error && response.statusCode == 200){
-          // console.log(response.statusCode)
-          // console.log(response.statusMessage)
+          console.log(response.statusCode)
+          console.log(response.statusMessage)
           // console.log(zip.decompress(response.body))
           // res.status(200).send(zip.decompress(response.body));
          res.status(200).send(response.body);
         }else{
+          console.log(response.statusCode)
+          console.log(response.statusMessage)
           res.status(response.statusCode).send('error :' + error + ", message : " +response.statusMessage)
         }
   
