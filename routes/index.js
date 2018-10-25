@@ -43,12 +43,9 @@ router.post('/pushDsn', function(req, res, next) {
   var zlib = require('zlib');
   console.log("Header Jeton : ")
   console.log(req.get('jeton'));
-
   console.log("File : ")
   console.log(req.body.file);
-
-  zlib.gzip(req.body.file, function (err, result) {
-   
+  zlib.gzip(req.body.file, function (err, result) { 
     request({
       url: 'https://depot.dsnrg.net-entreprises.fr/deposer-dsn/1.0/',
       method: "POST",
@@ -59,7 +56,7 @@ router.post('/pushDsn', function(req, res, next) {
         'Content-Type' :'text/plain',
         'Cache-Control': 'no-cache',
         //'Content-Type' :'application/json',
-       'Content-Encoding' :'gzip',
+        'Content-Encoding' :'gzip',
         'Accept-Encoding' :'gzip',
         //'Accept-Encoding' :'gzip',
         //'Content-Length' : 4096
@@ -77,12 +74,40 @@ router.post('/pushDsn', function(req, res, next) {
           console.log(response.statusMessage)
           res.status(response.statusCode).send('error :' + error + ", message : " +response.statusMessage)
         }
-  
       });
-
     });
+});
 
-  
+/* Get retour */
+router.get('/getReturn', function(req, res, next) {
+  var zlib = require('zlib');
+  var request = require('request');
+  console.log("Header flux : ")
+  console.log(req.get('idFlux'))
+  console.log("Header Jeton : ")
+  console.log(req.get('jeton'))
+  request({
+    url: 'https://consultation.dsnrg.net-entreprises.fr/lister-retours-flux/1.0/'+req.get('idFlux'),
+    method: "GET",
+    gzip: true,
+    headers: {
+      'Authorization': 'DSNLogin jeton='+req.get('jeton'),
+      'User-Agent': 'Client-DSN (DsnBuilder/12.5; Paie.fr)',
+      // 'Content-Type' :'text/plain',
+      'Accept-Encoding' : 'gzip'
+    }
+    }, function (error, response, body){
+      if(!error && response.statusCode == 200){
+        console.log(response.statusCode)
+        console.log(response.statusMessage)  
+      }else{
+        res.status(response.statusCode).send('error :' + error + ", message : " +response.statusMessage)
+      }
+    }).on('data', function(data) {
+      // decompressed data as it is received
+      //console.log('decoded chunk: ' + data)
+      res.status(200).send(data);
+    });
 });
 
 module.exports = router;
