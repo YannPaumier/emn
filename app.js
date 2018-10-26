@@ -16,8 +16,9 @@ var app = express();
 //app.use(compression());
 
 app.use(logger('dev'));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser.xml());
-app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
