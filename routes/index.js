@@ -80,12 +80,13 @@ router.post('/pushDsn', function(req, res, next) {
 
 /* Get retour */
 router.get('/getReturn', function(req, res, next) {
-  var zlib = require('zlib');
   var request = require('request');
   console.log("Header flux : ")
   console.log(req.get('idFlux'))
   console.log("Header Jeton : ")
   console.log(req.get('jeton'))
+  var status;
+  var response;
   request({
     url: 'https://consultation.dsnrg.net-entreprises.fr/lister-retours-flux/1.0/'+req.get('idFlux'),
     method: "GET",
@@ -98,15 +99,17 @@ router.get('/getReturn', function(req, res, next) {
     }
     }, function (error, response, body){
       if(!error && response.statusCode == 200){
+        status = response.statusCode;
+        response = response.statusMessage
         console.log(response.statusCode)
         console.log(response.statusMessage)  
-      }else{
-        res.status(response.statusCode).send('error :' + error + ", message : " +response.statusMessage)
       }
     }).on('data', function(data) {
+      status = 200;
+      response = data;
       // decompressed data as it is received
       //console.log('decoded chunk: ' + data)
-      res.status(200).send(data);
+      res.status(status).send(response);
     });
 });
 
