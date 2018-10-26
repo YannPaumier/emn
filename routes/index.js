@@ -117,7 +117,8 @@ router.get('/getReturn', function(req, res, next) {
     }).on('response', function(response) {
       // unmodified http.IncomingMessage object
       console.log("response ? : " );
-      console.log(response);
+      console.log(response.statusCode);
+      console.log(response.statusMessage);  
     });
 });
 
