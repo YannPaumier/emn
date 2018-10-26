@@ -100,16 +100,24 @@ router.get('/getReturn', function(req, res, next) {
     }, function (error, response, body){
       if(!error && response.statusCode == 200){
         status = response.statusCode;
-        response = response.statusMessage
-        console.log(response.statusCode)
-        console.log(response.statusMessage)  
+        response = response.statusMessage;
+        console.log(response.statusCode);
+        console.log(response.statusMessage);  
       }
     }).on('data', function(data) {
       status = 200;
       response = data;
       // decompressed data as it is received
       //console.log('decoded chunk: ' + data)
+      console.log("status : ");
+      console.log(status);
+      console.log("response : ");
+      console.log(response);
       res.status(status).send(response);
+    }).on('response', function(response) {
+      // unmodified http.IncomingMessage object
+      console.log("response ? : " );
+      console.log(response);
     });
 });
 
