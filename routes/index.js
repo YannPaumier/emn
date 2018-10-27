@@ -108,7 +108,7 @@ router.get('/getReturn', function(req, res, next) {
       console.log("response ? : " );
       console.log(response.statusCode);
       console.log(response.statusMessage);  
-      if(error && !response.statusCode == 200){
+      if(!response.statusCode == 200){
         res.status(response.statusCode).send(response.statusMessage);
       }
     });
