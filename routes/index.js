@@ -31,7 +31,10 @@ router.get('/hooks', function(req, res, next) {
     };
 
   request(options, function (error, response, body) {
-    if (error) throw new Error(error);
+    if (error) if (error) {
+      res.status(400).send(error);
+      throw new Error(error);
+    }
     console.log(body);
     var jsonBody = JSON.parse(body);
     var token = jsonBody.access_token;
@@ -51,14 +54,17 @@ router.get('/hooks', function(req, res, next) {
     },
     json: true };
 
-  request(options, function (error, response, body) {
-    if (error) throw new Error(error);
-
-    console.log(body);
+    request(options, function (error, response, body) {
+      if (error) {
+        res.status(400).send(error);
+        throw new Error(error);
+      }else{
+        res.status(200).send(body);
+      }
+    });
   });
-  });
 
-  res.status(200).send('We are catching hooks form there. with the id : ' + id);
+
 });
 
 
@@ -88,7 +94,9 @@ router.post('/auth', function(req, res, next) {
   
 });
 
-/* Send DSN */
+/*
+ * Send DSN 
+ */
 router.post('/pushDsn', function(req, res, next) {
   //process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
   var request = require('request');
@@ -132,7 +140,9 @@ router.post('/pushDsn', function(req, res, next) {
     });
 });
 
-/* Get retour */
+/* 
+ * Get retour 
+ */
 router.get('/getReturn', function(req, res, next) {
   var request = require('request');
   console.log("Header flux : ")
