@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var http = require('https');
+var request = require('request');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -39,7 +40,6 @@ router.get('/hooks', function(req, res, next) {
 /* Sync */
 router.post('/auth', function(req, res, next) {
 
-  var request = require('request');
   console.log(req.body)
 
   request({
