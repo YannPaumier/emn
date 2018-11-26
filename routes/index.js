@@ -59,7 +59,7 @@ router.get('/hooks', function(req, res, next) {
         res.status(400).send(error);
         throw new Error(error);
       }else{
-        res.status(200).send(body);
+        res.status(200).send("Done.");
       }
     });
   });
