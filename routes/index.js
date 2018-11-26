@@ -11,6 +11,26 @@ router.get('/', function(req, res, next) {
 router.get('/hooks', function(req, res, next) {
   var id = req.get('id');
   console.log(id)
+
+  var options = { method: 'POST',
+  url: 'https://cs81.salesforce.com/services/oauth2/token',
+  headers: 
+   { 'cache-control': 'no-cache',
+     'content-type': 'multipart/form-data;' },
+  formData: 
+   { grant_type: 'password',
+     client_id: '3MVG9od6vNol.eBid0tcZtL6VEWzedFKxaeXsfQUpUcf.9lwW8tLvmCgo57dqAEkpvon_SPGA44U8OTIXCzXv',
+     client_secret: '4542172518864976311',
+     username: 'yannpaumier@gmail.com',
+     password: 'Yann2018PTjGD3swk2d4UwcmMruxmMib' } 
+    };
+
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+
+    console.log(body);
+  });
+
   res.status(200).send('We are catching hooks form there. with the id : ' + id);
 });
 
