@@ -4,8 +4,15 @@ var http = require('https');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  console.log(req.get('idFlux'))
   res.status(200).send('Hi!');
 });
+
+/* Catching HOOKS from Yousign */
+router.get('/hooks', function(req, res, next) {
+  res.status(200).send('We are catching hooks form there.');
+});
+
 
 /* Sync */
 router.post('/auth', function(req, res, next) {
