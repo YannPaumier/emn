@@ -13,6 +13,9 @@ router.get('/hooks', function(req, res, next) {
   var id = req.get('id');
   console.log(id)
 
+  /*
+   * GET TOKEN
+   */
   var options = {
   method: 'POST',
   url: 'https://cs81.salesforce.com/services/oauth2/token',
@@ -29,8 +32,29 @@ router.get('/hooks', function(req, res, next) {
 
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
-    console.log(response.body);
     console.log(body);
+    var token = body.access_token;
+    console.log("token : " + token)
+
+    /* 
+     * UPDATE
+     */
+    var options = { method: 'PATCH',
+    url: 'https://cs81.salesforce.com/services/data/v32.0/sobjects/Yousign_procedure__c/'+id,
+    headers: 
+    { 'cache-control': 'no-cache',
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer '+token },
+    body: { 
+      webhook_yousign__c: 'procedure.finished'
+    },
+    json: true };
+
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+
+    console.log(body);
+  });
   });
 
   res.status(200).send('We are catching hooks form there. with the id : ' + id);
