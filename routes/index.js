@@ -12,7 +12,8 @@ router.get('/hooks', function(req, res, next) {
   var id = req.get('id');
   console.log(id)
 
-  var options = { method: 'POST',
+  var options = {
+  method: 'POST',
   url: 'https://cs81.salesforce.com/services/oauth2/token',
   headers: 
    { 'cache-control': 'no-cache',
@@ -27,7 +28,7 @@ router.get('/hooks', function(req, res, next) {
 
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
-
+    console.log(response.body);
     console.log(body);
   });
 
