@@ -33,7 +33,8 @@ router.get('/hooks', function(req, res, next) {
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
     console.log(body);
-    var token = body.access_token;
+    var jsonBody = JSON.parse(body);
+    var token = jsonBody.access_token;
     console.log("token : " + token)
 
     /* 
